@@ -160,3 +160,10 @@ config SECURE_CAMERA_USE
         default n
         help
           Use secure camera.
+config USE_SIGNED_BINARY
+        bool "Enable signed binary processing."
+        depends on VENDER_MCD
+        default n
+        help
+          Enable signed binary processing.
+

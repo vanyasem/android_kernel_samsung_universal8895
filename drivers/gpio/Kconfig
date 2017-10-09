@@ -50,7 +50,6 @@ config GPIO_DEVRES
 config OF_GPIO
 	def_bool y
 	depends on OF
-	depends on HAS_IOMEM
 
 config GPIO_ACPI
 	def_bool y
@@ -594,12 +593,6 @@ config GPIO_ADNP
 	  example: if a controller provides 48 pins, 6 registers will be
 	  enough to represent all pins, but the driver will assume a
 	  register layout for 64 pins (8 registers).
-
-config GPIO_MADERA
-	tristate "Cirrus Logic Madera class codecs"
-	depends on MFD_MADERA
-	help
-	  Support for GPIOs on Cirrus Logic Madera class codecs.
 
 config GPIO_MAX7300
 	tristate "Maxim MAX7300 GPIO expander"
