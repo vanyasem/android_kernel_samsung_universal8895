@@ -107,7 +107,7 @@ fw-shipped-$(CONFIG_USB_KAWETH) += kaweth/new_code.bin kaweth/trigger_code.bin \
 fw-shipped-$(CONFIG_WIRELESS_FIRMWARE_UPDATE) += mfc/mfc_fw_flash.bin
 
 ifdef CONFIG_FIRMWARE_IN_KERNEL
-fw-shipped-$(CONFIG_EXYNOS8890_APM) += apm_8890_evt1.h
+fw-shipped-$(CONFIG_EXYNOS8890_APM) += apm_8890_evt1.fw
 ifdef CONFIG_SOC_EMULATOR8895
 fw-shipped-$(CONFIG_EXYNOS8895_ACPM) += emulator8895_acpm_dvfs.fw
 else

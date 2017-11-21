@@ -647,116 +647,11 @@ config HOTPLUG_CPU
 	  Say Y here to experiment with turning CPUs off and on.  CPUs
 	  can be controlled through /sys/devices/system/cpu.
 
-config TIMA
-	bool "Enable TIMA(Trustzone based Integrity Measurement Archtecture feature"
-	default n
-
-config TIMA_LKMAUTH
-	bool "Enable LKM authentication by TIMA"
-	help
-	  TIMA authenticates loaded kernel modules. Disable it if you don't
-	  want TIMA enabled.
-
-config TIMA_RKP
-	depends on TIMA
-	default n
-	bool "Samsung KNOX realtime kernel protection depends on TIMA"
-	help
-	  this enables realtime kernel protection
-
-config TIMA_RKP_DEBUG
-	depends on TIMA_RKP
-	default n
-	bool "Support SS Sentinel for debugging"
-	help
-	  this enables to support sentinel
-
-config RKP_KDP
-	bool "Protection for cred structure"
-	depends on TIMA_RKP
-	default n
-	help
-	  Prevents unauthorized cred modification.
-
-config RKP_NS_PROT
-	bool "Protection for namespace structure"
-	depends on RKP_KDP
-	default n
-	help
-	  Prevents unauthorized namespace modification.
-
-config RKP_DMAP_PROT
-	bool "Page Double Mapping protection"
-	depends on RKP_KDP
-	default n
-	help
-	  Prevents unauthorized mapping for page table.
-
-config RKP_6G
-	bool "Support 6G"
-	depends on TIMA_RKP
-	default n
-	help
-	  support 6G
-
 config RELOCATABLE_KERNEL
 	bool "set kernel to relocatable in both virtual and physical address"
 	default n
 	help
 	  This configuare will allow you to config the kernel into position independent kernel, with '--PIE' insert into LD script.
-
-#
-# BEGIN RKP_CFP CONFIG OPTIONS
-#
-
-menu "Control Flow Protection"
-
-config RKP_CFP
-	bool "JOPP and ROPP"
-	# depends on TIMA_RKP
-	default n
-
-config RKP_CFP_JOPP
-	bool "JOP Prevention"
-	select RKP_CFP
-	default n
-
-config RKP_CFP_JOPP_MAGIC
-	hex 
-	depends on RKP_CFP && RKP_CFP_JOPP
-	default "0x00be7bad"
-
-config RKP_CFP_ROPP
-	bool "ROP Prevention"
-	select RKP_CFP
-	select RKP_CFP_FIX_SMC_BUG
-	default n
-
-choice
-	prompt "ROPP key"
-	default RKP_CFP_ROPP_RANDOM_KEY
-	depends on RKP_CFP && RKP_CFP_ROPP
-
-config RKP_CFP_ROPP_HYPKEY
-	bool "Use hypervisor for key secure storage"
-
-config RKP_CFP_ROPP_RANDOM_KEY
-	bool "Use pseudo random key"
-
-config RKP_CFP_ROPP_ZERO_KEY
-	bool "Use zero key"
-
-endchoice
-
-config RKP_CFP_FIX_SMC_BUG
-	bool "Fix SMC compatibility issue"
-	depends on RKP_CFP_ROPP
-	default n
-endmenu
-
-#
-# END RKP_CFP CONFIG OPTIONS
-#
 
 source kernel/Kconfig.preempt
 source kernel/Kconfig.hz

@@ -26,10 +26,6 @@
 #include "fimc-is-companion.h"
 #include "fimc-is-device-sensor-peri.h"
 
-#if defined(CONFIG_TIMA_RKP) && defined(USE_TZ_CONTROLLED_MEM_ATTRIBUTE)
-#include <linux/rkp_entry.h>
-#endif
-
 struct fimc_is_lib_support gPtr_lib_support;
 struct mutex gPtr_bin_load_ctrl;
 
@@ -2114,9 +2110,6 @@ int fimc_is_load_ddk_bin(int loadType)
 			was_loaded_by(&bin) ? "built-in" : "user-provided");
 		memcpy((void *)lib_addr, bin.data, bin.size);
 		__flush_dcache_area((void *)lib_addr, bin.size);
-#if defined(CONFIG_TIMA_RKP) && defined(USE_TZ_CONTROLLED_MEM_ATTRIBUTE)
-		rkp_call(RKP_FIMC_VERIFY, (u64)page_to_phys(vmalloc_to_page((void *)lib_addr)), (u64)bin.size, 1, 0, 0);
-#endif
 	} else { /* loadType == BINARY_LOAD_DATA */
 		info_lib("binary info[%s] - type: D, from: %s\n",
 			bin_type,
@@ -2251,9 +2244,6 @@ int fimc_is_load_rta_bin(int loadType)
 			was_loaded_by(&bin) ? "built-in" : "user-provided");
 		memcpy((void *)lib_rta, bin.data, bin.size);
 		__flush_dcache_area((void *)lib_rta, bin.size);
-#if defined(CONFIG_TIMA_RKP) && defined(USE_TZ_CONTROLLED_MEM_ATTRIBUTE)
-		rkp_call(RKP_FIMC_VERIFY, (u64)page_to_phys(vmalloc_to_page((void *)lib_rta)), (u64)bin.size, 2, 0, 0);
-#endif
 	} else { /* loadType == BINARY_LOAD_DATA */
 		info_lib("binary info[RTA] - type: D, from: %s\n",
 			was_loaded_by(&bin) ? "built-in" : "user-provided");
