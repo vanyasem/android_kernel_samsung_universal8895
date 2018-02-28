@@ -7,8 +7,8 @@ BUILD_ROOT_DIR=$BUILD_KERNEL_DIR/..
 BUILD_KERNEL_OUT_DIR=$BUILD_ROOT_DIR/crap_kernel_out/KERNEL_OBJ
 PRODUCT_OUT=$BUILD_ROOT_DIR/crap_kernel_out
 
-export PATH=$PATH:/home/michael/android/toolchain/aarch64-linux-android/bin/
-export KERNEL_TOOLCHAIN=aarch64-linux-android-
+export PATH=$PATH:/home/michael/android/toolchain/aarch64-linux-gnu/bin/
+export KERNEL_TOOLCHAIN=aarch64-linux-gnu-
 
 BUILD_CROSS_COMPILE=$KERNEL_TOOLCHAIN
 BUILD_JOB_NUMBER=`grep processor /proc/cpuinfo|wc -l`
